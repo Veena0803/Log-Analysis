@@ -28,20 +28,8 @@ Following are the prerequistes to run this project. Please click on the link for
 `psql -d news -f newsdata.sql`
 - Further connections can be setup by using the command `psql -d news`
 ### Creating views:
-- In order to figure out the days which had more than 1% errors create two views using these queries:
-```sql
-  CREATE OR REPLACE VIEW log_view AS
-  SELECT status, date(time) AS day
-  FROM log;
-```
-```sql
-CREATE OR REPLACE VIEW final_log_view AS
-SELECT time::date, 100 * (sum(case when status != '200 OK' then 1 else 0 end)::
-float / count(day)::float)
-AS test 
-FROM log_view 
-GROUP BY time::date;
-```
+- Make sure to execute the file `log_views.sql` as the first step after connecting to the DB using the following command:
+`psql -d news -f log_views.sql`
 ### Technologies Used:
 - Python
 - SQL
