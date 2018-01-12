@@ -35,12 +35,9 @@ WHERE error_percentage >= 1;"""
 
 def connect():
     """Connect to the news database"""
-    try:
-        conn = psycopg2.connect(database=DBNAME)
-        cursor = conn.cursor()
-        return conn, cursor
-    except:
-        print("Unable to connect to the database")
+    conn = psycopg2.connect(database=DBNAME)
+    cursor = conn.cursor()
+    return conn, cursor
 
 
 def get_results(query):
@@ -58,9 +55,10 @@ def print_results(query_results):
 
 
 def print_errors(query_results):
-    print (query_results[1])
+    print(query_results[1])
     for time, error_percentage in query_results[0]:
         print('{} - {} % errors'.format(time, error_percentage))
+
 
 if __name__ == '__main__':
     results_popular_articles = get_results(q), art_title
